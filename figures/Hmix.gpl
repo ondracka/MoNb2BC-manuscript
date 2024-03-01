@@ -1,0 +1,14 @@
+set terminal pdf enhanced color font "Helvetica,10" linewidth 1 size 8cm,4.8cm
+set locale "cs_CZ.UTF-8"
+set encoding utf8
+
+set ylabel "Mixing enthalpy, {/Helvetica-Italic H}_{mix} [meV/atom]" offset 0,-1
+set xlabel "{/Helvetica-Italic x} in (Mo_{1-{/Helvetica-Italic x}}Nb_{/Helvetica-Italic x})_2BC"
+set xrange [-0.02:1.02]
+set key top left reverse samplen 1
+set xtics 0.2
+set mxtics 2
+set pointsize 0.8
+
+plot "Hmix.txt" u 1:($2*1000) t "{/Helvetica-Italic H}_{mix}" pt 5 lc rgb 'red', \
+     0 lc rgb 'black' dt (15,10) t ''

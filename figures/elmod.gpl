@@ -1,0 +1,43 @@
+set terminal pdf enhanced color font "Helvetica,10" linewidth 1 size 8cm,8.5cm
+set locale "cs_CZ.UTF-8"
+set encoding utf8
+
+set multiplot layout 2,1 margins 0.13,0.87,0.09,0.99 spacing 0.1,0.055
+
+set xtics 0.2
+set mxtics 2
+set mytics 2
+set format y "%.0f"
+set key top right
+set pointsize 0.8
+
+set xrange [-0.025:1.025]
+
+set pointintervalbox 1.35
+
+set label 1 at graph 0.03,0.94 "(a)"
+
+set ylabel "Elastic constants [GPa]"
+set yrange [150:650]
+
+plot "MoNb2BC/elmod.txt" u 1:($3/(1-$5*$5)) t "Effective elastic modulus, {/Helvetica-Italic E}_{eff}" pi -1 pt 11 w linespoints,\
+     "MoNb2BC/elmod.txt" u 1:3 t "Elastic modulus, {/Helvetica-Italic E}" pi -1 pt 7 w linespoints, \
+     "MoNb2BC/elmod.txt" u 1:2 t "Bulk modulus, {/Helvetica-Italic B}" pi -1 pt 5 w linespoints, \
+     "MoNb2BC/elmod.txt" u 1:4 t "Shear modulus, {/Helvetica-Italic G}" pi -1 pt 9 w linespoints, \
+
+set label 1 at graph 0.03,0.94 "(b)"
+set xlabel "{/Helvetica-Italic x} in (Mo_{1-{/Helvetica-Italic x}}Nb_{/Helvetica-Italic x})_2BC"
+
+c_poisson = "orange"
+
+set format y "%.2f"
+set y2tics 0.01
+set my2tics 2 
+set y2label "Poisson's ratio, {/Helvetica-Italic ν}" offset -1,0
+set ylabel "{/Helvetica-Italic B}/{/Helvetica-Italic G} ratio"
+set y2tics nomirror
+set ytics nomirror
+set y2range [:0.275]
+set yrange [1.40:1.8]
+plot "MoNb2BC/elmod.txt" u 1:5 axes x1y2 t "Poisson's ratio" pi -1 pt 5 lc rgb 'red' w linespoints ,\
+     "MoNb2BC/elmod.txt" u 1:($2/$4)  t "B/G" pi -1 pt 7 lc rgb c_poisson w linespoints

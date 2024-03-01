@@ -1,0 +1,51 @@
+set terminal pdf enhanced color font "Helvetica,10" linewidth 1 size 8cm,7cm
+set locale "cs_CZ.UTF-8"
+set encoding utf8
+
+set multiplot layout 2,1 margins 0.12,0.87,0.11,0.99 spacing 0.1,0.07
+
+set xtics 0.2
+set mxtics 2
+set format y "%.2f"
+set format y "%.2f"
+set ytics 0.01
+set mytics 5
+set key bottom right samplen 0.5
+set pointsize 0.7
+
+set xrange [-0.025:1.025]
+set ylabel offset 0.5,0 "{/Helvetica-Italic a/c} ratio"
+set y2label offset -1.5,0 "{/Helvetica-Italic b/c} ratio"
+
+set pointintervalbox 1.35
+set y2tics nomirror
+set ytics nomirror
+set y2tics 0.05
+
+set label 1 at graph 0.04,0.92 "(a)"
+set arrow from 0.42,1.017 to 0.25,1.017 lc rgb 'red'
+set arrow from 0.59,1.015 to 0.77,1.015 lc rgb 'blue'
+
+plot "parsed.txt" u 1:($4/$6) t "{/Helvetica-Italic a/c}" pt 5 lc rgb 'red',\
+     "parsed.txt" u 1:($5/$6) t "{/Helvetica-Italic b/c}" pt 7 lc rgb 'blue' axes x1y2, \
+
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+set xrange [-0.025:1.025]
+set ylabel "Mean B-B bond length [Å]"
+set y2label offset -0.5 "Mean B-B-B bond angle [°]"
+
+set pointintervalbox 1.35
+set y2tics 1 nomirror
+set ytics nomirror
+set key top left reverse Left
+set mytics 5
+
+
+set arrow from 0.19,1.823 to 0.04,1.823 lc rgb 'red'
+set arrow from 0.57,1.825 to 0.73,1.825 lc rgb 'blue'
+set label 1 at graph 0.04,0.7 "(b)"
+set xlabel "Nb/(Mo+Nb)"
+
+plot "BB.txt" u 1:2:3 t "B-B bond length" pt 5 lc rgb 'red',\
+     "BB.txt" u 1:4:5 t "B-B-B bond angle" pt 7 lc rgb 'blue' axes x1y2, \
